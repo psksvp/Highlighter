@@ -55,7 +55,7 @@ open class Highlightr
 
         let bundle = Bundle(for: Highlightr.self)
         self.bundle = bundle
-        guard let hgPath = highlightPath ?? bundle.path(forResource: "highlight.min", ofType: "js") else
+        guard let hgPath = highlightPath ?? bundle.path(forResource: "highlight.min", ofType: "js", inDirectory: "highlighter") else
         {
             return nil
         }
@@ -89,7 +89,7 @@ open class Highlightr
     @discardableResult
     open func setTheme(to name: String) -> Bool
     {
-        guard let defTheme = bundle.path(forResource: name+".min", ofType: "css") else
+        guard let defTheme = bundle.path(forResource: name+".min", ofType: "css", inDirectory: "highlighter") else
         {
             return false
         }
@@ -156,7 +156,7 @@ open class Highlightr
      */
     open func availableThemes() -> [String]
     {
-        let paths = bundle.paths(forResourcesOfType: "css", inDirectory: nil) as [NSString]
+        let paths = bundle.paths(forResourcesOfType: "css", inDirectory: "highlighter") as [NSString]
         var result = [String]()
         for path in paths {
             result.append(path.lastPathComponent.replacingOccurrences(of: ".min.css", with: ""))
